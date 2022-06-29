@@ -1,3 +1,8 @@
+'''
+Autor: www.github.com/JuanBindez
+Descrição: Detecta Rostos Em Imagens
+'''
+
 import os
 import time
 import cv2
