@@ -14,7 +14,7 @@ gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
 
 # Detecta rostos
-faces = face_cascade.detectMuliScale(gray, 1.1, 4)
+faces = face_cascade.detectMultiScale(gray, 1.1, 4)
 
 
 # Desenha retangulos no rosto capturado
