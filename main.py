@@ -20,9 +20,8 @@ capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 350)
 while not cv2.waitKey(20) & 0xFF == ord("q"):
     ret, frame_color = capture.read()
 
-    gray = cv2.cvtColor(frame_color, cv2.COLOR_BGR2GRAY)
-
-    faces = face_classifier.detectMultiScale(gray)
+    gray = cv2.cvtColor(frame_color, cv2.COLOR_BGR2GRAY)                    # Tela em cinza.
+    faces = face_classifier.detectMultiScale(gray)                          # Detecta os rostos.
 
     for x, y, w, h in faces:
         cv2.rectangle(frame_color, (x,y), (x + w, y + h),(0,0,255), 2)
