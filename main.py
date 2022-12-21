@@ -1,32 +1,31 @@
-'''
-Autor: www.github.com/JuanBindez
-Descrição: Detecta Rostos Em Imagens
-'''
-
-import os
-import time
+import numpy as np
 import cv2
 
-# carrega modelo
-face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_defalt.xml')
-
-# Carrega imagem
-img = cv2.imread('imagem.jpg')
+from matplotlib import pyplot as plt
 
 
-# Converte para escala de cinzaclear
-gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+xml_haarcascade = "haarcascade_frontalface_alt2.xml"
+
+face_classifier = cv2.CascadeClassifier(xml_haarcascade)                     # Carrega o clicificador.
 
 
-# Detecta rostos
-faces = face_cascade.detectMultiScale(gray, 1.1, 4)
+# Inicia camera:
+capture = cv2.VideoCapture(0)
+
+capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+
+capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+
+while not cv2.waitKey(20) & 0xFF == ord("q"):
+    ret, frame_color = capture.read()
+
+    gray = cv2.cvtColor(frame_color, cv2.COLOR_BGR2GRAY)
+
+    faces = face_classifier.detectMultiScale(gray)
+
+    for x, y, w, h in faces:
+        cv2.rectangle(frame_color, (x,y), (x + w, y + h),(0,0,255), 2)
 
 
-# Desenha retangulos no rosto capturado
-for (x, y, w, h) in faces:
-    cv2.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
-
-
-# Mostra o resultado
-cv2.imshow('img', img)
-cv2.waitKey()
+    cv2.imshow('color', frame_color)
+    cv2.imshow('gray', gray)
